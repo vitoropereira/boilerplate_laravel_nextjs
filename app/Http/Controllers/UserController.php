@@ -38,15 +38,15 @@ class UserController extends Controller
     public function update(User $user): JsonResource
     {
 
-        if (!auth()->user()->tokenCan('user.update')) {
-            Response::HTTP_FORBIDDEN;
-        }
+        // if (!$user->tokenCan('user.update')) {
+        //     Response::HTTP_FORBIDDEN;
+        // }
 
         $attributes = validator(
             request()->all(),
             [
                 'name' => [Rule::when($user->exists, 'sometimes'), 'string', 'required'],
-                'cpf' => [Rule::when($user->exists, 'sometimes'), 'string', 'required', 'unique:users'],
+                'cpf' => [Rule::when($user->exists, 'sometimes'), 'string', 'required', 'unique:users, cpf,' . $user->id],
                 'cell_phone' => [Rule::when($user->exists, 'sometimes'), 'string'],
                 'address1' => [Rule::when($user->exists, 'sometimes'), 'string'],
                 'address2' => [Rule::when($user->exists, 'sometimes'), 'string'],
