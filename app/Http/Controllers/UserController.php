@@ -46,7 +46,7 @@ class UserController extends Controller
             request()->all(),
             [
                 'name' => [Rule::when($user->exists, 'sometimes'), 'string', 'required'],
-                'cpf' => [Rule::when($user->exists, 'sometimes'), 'string', 'required', 'unique:users, cpf,' . $user->cpf],
+                'cpf' => [Rule::when($user->exists, 'sometimes'), 'string', 'required', 'unique:users, id,' . $user->id],
                 'cell_phone' => [Rule::when($user->exists, 'sometimes'), 'string'],
                 'address1' => [Rule::when($user->exists, 'sometimes'), 'string'],
                 'address2' => [Rule::when($user->exists, 'sometimes'), 'string'],
